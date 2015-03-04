@@ -63,4 +63,18 @@ describe "Resolving" do
     }.to raise_error(Bundler::CyclicDependencyError, /please remove either gem 'foo' or gem 'bar'/i)
   end
 
+  #TODO: come up with a better description
+  it "should install the latest version of foo" do
+    @index = a_complicated_index
+    dep "foo"
+    should_resolve_and_include %w(foo-3.0.5)
+  end
+
+  #TODO: come up with a better description
+  it "should also install the latest version of foo in this scenario" do
+    @index = a_complicated_index
+    dep "foo", ">= 3.0.0"
+    should_resolve_and_include %w(foo-3.0.5)
+  end
+
 end
